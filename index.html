@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2aafb0" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Caazapá Datos Abiertos</title>
+  </head>
+  <body>
+    <header>
+      <img class="header-logo" src="assets/logo-gob-caazapa.svg" alt="Logo Gobernación de Caazapá" />
+      <p class="subtitle">Sistema de Gestión y Visualización de Datos Departamentales (PWA)</p>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h2>1) Cargar archivo Excel</h2>
+        <p>Suba un archivo <strong>.xlsx</strong> con columnas: Fecha, Distrito, Categoria, Descripcion, Monto, Beneficiarios.</p>
+        <input id="excelFile" type="file" accept=".xlsx,.xls" />
+        <button id="useDemo">Usar datos de demostración</button>
+      </section>
+
+      <section class="panel filters">
+        <h2>2) Filtros rápidos</h2>
+        <label>
+          Distrito
+          <select id="districtFilter">
+            <option value="">Todos</option>
+          </select>
+        </label>
+        <label>
+          Categoría
+          <select id="categoryFilter">
+            <option value="">Todas</option>
+          </select>
+        </label>
+        <label>
+          Buscar texto
+          <input id="searchFilter" type="text" placeholder="Obra, beneficio, escuela..." />
+        </label>
+      </section>
+
+      <section class="panel metrics">
+        <h2>3) Indicadores</h2>
+        <div class="cards">
+          <article class="card"><span>Total de registros</span><strong id="totalRecords">0</strong></article>
+          <article class="card"><span>Monto total</span><strong id="totalAmount">Gs. 0</strong></article>
+          <article class="card"><span>Beneficiarios</span><strong id="totalBeneficiaries">0</strong></article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>4) Informe y gráficos</h2>
+        <canvas id="districtChart" aria-label="Monto por distrito"></canvas>
+        <canvas id="categoryChart" aria-label="Monto por categoría"></canvas>
+      </section>
+
+      <section class="panel">
+        <h2>5) Cargar más datos manualmente</h2>
+        <form id="recordForm">
+          <label>Fecha <input type="date" id="fDate" required /></label>
+          <label>Distrito <input type="text" id="fDistrict" required /></label>
+          <label>Categoría <input type="text" id="fCategory" required /></label>
+          <label>Descripción <input type="text" id="fDescription" required /></label>
+          <label>Monto (Gs.) <input type="number" id="fAmount" min="0" required /></label>
+          <label>Beneficiarios <input type="number" id="fBeneficiaries" min="0" required /></label>
+          <button type="submit">Agregar registro</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>6) Tabla de resultados</h2>
+        <button id="downloadReport">Descargar informe CSV filtrado</button>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Distrito</th>
+                <th>Categoría</th>
+                <th>Descripción</th>
+                <th>Monto</th>
+                <th>Beneficiarios</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

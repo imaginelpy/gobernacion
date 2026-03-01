@@ -1,0 +1,15 @@
+{
+  "name": "Gestión Departamental Caazapá",
+  "short_name": "Caazapá Datos",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f5",
+  "theme_color": "#0c5a36",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect width='100%25' height='100%25' fill='%230c5a36'/%3E%3Ctext x='50%25' y='54%25' font-size='72' text-anchor='middle' fill='white'%3ECZ%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
