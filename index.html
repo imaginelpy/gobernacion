@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Gestión - Gobernación de Caazapá</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="branding">
+        <img
+          class="logo-main"
+          src="assets/logo-gobernacion-caazapa.png"
+          alt="Logo oficial de la Gobernación de Caazapá"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      <h1>Gobernación de Caazapá</h1>
+      <p>Panel móvil para filtrar, analizar y reportar obras, beneficios e inversiones por distrito.</p>
+    </header>
+
+    <main>
+      <section class="card uploader">
+        <h2>Cargar archivo Excel</h2>
+        <p>
+          Formato sugerido: <strong>Distrito, Tipo, Descripcion, Monto, Fecha, Beneficiarios</strong>
+        </p>
+        <input id="excelInput" type="file" accept=".xlsx,.xls" />
+        <button id="loadSampleBtn" type="button">Cargar datos de ejemplo</button>
+      </section>
+
+      <section class="card filters">
+        <h2>Filtros rápidos</h2>
+        <div class="grid">
+          <label>
+            Distrito
+            <select id="districtFilter">
+              <option value="">Todos</option>
+            </select>
+          </label>
+
+          <label>
+            Tipo
+            <select id="typeFilter">
+              <option value="">Todos</option>
+            </select>
+          </label>
+
+          <label>
+            Buscar texto
+            <input id="searchFilter" type="text" placeholder="Ej: puente, aula, ambulancia" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card report-cards" id="reportCards">
+        <article>
+          <h3>Total invertido</h3>
+          <p id="totalMonto">₲ 0</p>
+        </article>
+        <article>
+          <h3>Registros</h3>
+          <p id="totalRegistros">0</p>
+        </article>
+        <article>
+          <h3>Beneficiarios</h3>
+          <p id="totalBeneficiarios">0</p>
+        </article>
+        <article>
+          <h3>Promedio por acción</h3>
+          <p id="promedioMonto">₲ 0</p>
+        </article>
+      </section>
+
+      <section class="card charts">
+        <h2>Gráficos</h2>
+        <div class="chart-grid">
+          <div>
+            <h3>Inversión por tipo</h3>
+            <canvas id="typeChart"></canvas>
+          </div>
+          <div>
+            <h3>Registros por distrito</h3>
+            <canvas id="districtChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Detalle de registros</h2>
+        <button id="downloadBtn" type="button">Descargar informe Excel filtrado</button>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Distrito</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Beneficiarios</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Cargar nuevo dato manualmente</h2>
+        <form id="addForm">
+          <div class="grid">
+            <label>Distrito <input required name="Distrito" /></label>
+            <label>Tipo <input required name="Tipo" /></label>
+            <label>Descripción <input required name="Descripcion" /></label>
+            <label>Monto <input required name="Monto" type="number" min="0" /></label>
+            <label>Fecha <input required name="Fecha" type="date" /></label>
+            <label>Beneficiarios <input name="Beneficiarios" type="number" min="0" value="0" /></label>
+          </div>
+          <button type="submit">Guardar registro</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <small>Gobierno somos todos · Prototipo funcional para uso de campo y consulta móvil.</small>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
