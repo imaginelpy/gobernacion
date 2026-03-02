@@ -1,39 +1,43 @@
-# Prototipo PWA - Gestión de Datos Departamentales (Caazapá)
+# SIGDEP Caazapá
 
-Aplicación web progresiva (PWA) orientada a la Gobernación de Caazapá para:
+Sistema Inteligente de Gestión y Decisión Departamental para la Gobernación de Caazapá.
 
-- Cargar datos desde Excel (`.xlsx`)
-- Filtrar por distrito, categoría y texto libre
-- Ver indicadores (monto total, beneficiarios, total de acciones)
-- Generar gráficos por distrito y categoría
-- Registrar nuevos datos manualmente
-- Descargar informe filtrado en CSV
-- Usar desde móvil y modo instalable/offline básico
+## Stack
+- Next.js 14 (App Router) + TypeScript
+- Tailwind CSS
+- PostgreSQL + Prisma ORM
+- NextAuth (JWT con credenciales)
+- Leaflet para mapa interactivo
 
-## Formato esperado del Excel
+## Puesta en marcha
 
-Primera hoja con columnas:
+1. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+2. Configurar entorno:
+   ```bash
+   cp .env.example .env
+   ```
+3. Definir `DATABASE_URL` en `.env`.
+4. Ejecutar migraciones y seed:
+   ```bash
+   npx prisma migrate dev --name init
+   npm run prisma:seed
+   ```
+5. Levantar desarrollo:
+   ```bash
+   npm run dev
+   ```
 
-- `Fecha`
-- `Distrito`
-- `Categoria`
-- `Descripcion`
-- `Monto`
-- `Beneficiarios`
+## Usuarios demo
+- `gobernador@sigdep.gov.py` / `admin123`
+- `secretario@sigdep.gov.py` / `admin123`
+- `visitante@sigdep.gov.py` / `admin123`
 
-## Ejecutar localmente
-
-```bash
-python3 -m http.server 8080
-```
-
-Abrir: `http://localhost:8080`
-
-## Publicar online
-
-Puede subirse directamente a:
-
-- GitHub Pages
-- Netlify
-- Vercel (sitio estático)
-
+## Estructura
+- `app/(dashboard)` panel principal y panel del gobernador
+- `app/api` CRUD de obras y distritos + análisis estratégico
+- `components` UI modular
+- `lib` autenticación, prisma, lógica de negocio estratégica
+- `prisma` schema y seed

@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rol {
+  GOBERNADOR
+  SECRETARIO
+  VISITANTE
+}
+
+enum EstadoObra {
+  PLANIFICADA
+  EN_EJECUCION
+  FINALIZADA
+  PAUSADA
+}
+
+model Obra {
+  id          Int        @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  distrito    String
+  tipo        String
+  monto       Float
+  anio        Int
+  estado      EstadoObra @default(PLANIFICADA)
+  latitud     Float
+  longitud    Float
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Distrito {
+  id                        Int    @id @default(autoincrement())
+  nombre                    String @unique
+  poblacion                 Int
+  superficie                Float
+  densidad                  Float
+  porcentajeJovenes         Float
+  porcentajeAdultos         Float
+  porcentajeAdultosMayores  Float
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  email     String   @unique
+  password  String
+  rol       Rol      @default(VISITANTE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
