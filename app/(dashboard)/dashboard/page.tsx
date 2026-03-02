@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { StatsCards } from "@/components/StatsCards";
 import { ChartsPanel } from "@/components/ChartsPanel";
 import { auth } from "@/auth";
+import { DataManagementPanel } from "@/components/DataManagementPanel";
 
 const MapView = dynamic(() => import("@/components/MapView").then((mod) => mod.MapView), { ssr: false });
 
@@ -72,16 +73,11 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
 
       <MapView obras={obras} canEdit={["GOBERNADOR", "SECRETARIO"].includes(session?.user.role ?? "")} />
 
-      <div className="card">
-        <h3 className="font-semibold mb-3">Distritos registrados</h3>
-        <ul className="grid md:grid-cols-2 gap-2 text-sm">
-          {distritos.map((distrito) => (
-            <li key={distrito.id} className="rounded border p-2">
-              <strong>{distrito.nombre}</strong> · Población {distrito.poblacion.toLocaleString("es-PY")}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <DataManagementPanel
+        obras={obras}
+        distritos={distritos}
+        canWrite={["GOBERNADOR", "SECRETARIO"].includes(session?.user.role ?? "")}
+      />
     </section>
   );
 }

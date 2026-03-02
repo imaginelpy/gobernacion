@@ -44,6 +44,32 @@ export default async function GobernadorPage() {
       </div>
 
       <div className="card">
+        <h2 className="font-semibold">Relaciones estratégicas por distrito</h2>
+        <div className="mt-3 overflow-x-auto">
+          <table className="min-w-full text-sm">
+            <thead>
+              <tr className="text-left border-b">
+                <th className="py-2 pr-3">Distrito</th>
+                <th className="py-2 pr-3">Inversión</th>
+                <th className="py-2 pr-3">Inversión / población</th>
+                <th className="py-2 pr-3">Inversión / superficie</th>
+              </tr>
+            </thead>
+            <tbody>
+              {analysis.investmentByDistrict.map((item) => (
+                <tr key={item.distrito} className="border-b last:border-0">
+                  <td className="py-2 pr-3">{item.distrito}</td>
+                  <td className="py-2 pr-3">{formatCurrency(item.totalInversion)}</td>
+                  <td className="py-2 pr-3">{item.perCapita.toFixed(2)} PYG/hab</td>
+                  <td className="py-2 pr-3">{item.perSuperficie.toFixed(2)} PYG/km²</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="card">
         <h2 className="font-semibold">Motor de sugerencias inteligentes</h2>
         <ul className="list-disc ml-5 mt-3 text-sm space-y-2">
           {analysis.recomendaciones.map((recomendacion) => (
